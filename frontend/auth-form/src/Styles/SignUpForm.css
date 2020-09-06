@@ -1,0 +1,194 @@
+body {
+    background: #DCDCDC;
+    /*background: #0e101c;*/
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-weight: 100;
+    color: white;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(79, 98, 148);
+}
+
+.form {
+    background: #0e101c;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.framing::before {
+    display: inline;
+}
+
+p {
+    color: #bf1650;
+}
+
+p::before {
+    display: inline;
+    /*content: "⚠ ";*/
+}
+
+input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid white;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+label {
+    line-height: 2;
+    text-align: left;
+    display: block;
+    margin-bottom: 13px;
+    margin-top: 20px;
+    /*color: white;*/
+    color: #0e101c;
+    font-size: 14px;
+    font-weight: 200;
+}
+
+button[type="submit"],
+button[type="button"],
+input[type="submit"] {
+    background: #ec5990;
+    color: white;
+    /*text-transform: uppercase;*/
+    border: none;
+    margin-top: 40px;
+    padding: 20px;
+    font-size: 16px;
+    /*font-weight: 100;*/
+    /*letter-spacing: 2px;*/
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover,
+input[type="submit"]:hover {
+    background: #bf1650;
+    cursor: pointer;
+}
+
+button[type="submit"]:active,
+input[type="button"]:active,
+input[type="submit"]:active {
+    transition: 0.3s all;
+    transform: translateY(3px);
+    -webkit-tap-highlight-color: transparent;
+    /*border: 1px solid transparent;*/
+    opacity: 0.8;
+}
+
+input:disabled {
+    opacity: 0.4;
+}
+
+input[type="button"]:hover {
+    transition: 0.3s all;
+}
+
+button[type="submit"],
+input[type="button"],
+input[type="submit"] {
+    -webkit-appearance: none;
+}
+
+.Application {
+    /*max-width: 30vw;*/
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+pre {
+    color: white;
+}
+
+hr {
+    margin-top: 30px;
+}
+
+button {
+    display: block;
+    appearance: none;
+    margin-top: 40px;
+    /*border: 1px solid #333;*/
+    margin-bottom: 20px;
+    /*text-transform: uppercase;*/
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+
+.buttons {
+    display: flex;
+}
+
+.signIn {
+    order: 1;
+    width: 100%;
+    margin-right: 5px;
+}
+
+.signUp {
+    order: 2;
+    width: 100%;
+    margin-left: 5px;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 10px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    /*background-color: #fefefe;*/
+    background-color: #e0e4e6;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 55%;
+
+}
+
+/* Close button*/
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cross {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-right: -10px;
+}
