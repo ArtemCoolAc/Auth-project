@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-//import {SignUpForm} from './SignUpForm';
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 

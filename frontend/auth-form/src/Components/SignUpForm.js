@@ -4,9 +4,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 import PasswordStrengthBar from 'react-password-strength-bar';
-import {RenderCounter} from 'react-render-counter';
-
-import {ReactPasswordStrength} from 'react-password-strength'
 
 import "../Styles/SignUpForm.css"
 
@@ -67,7 +64,7 @@ export function SignUpForm() {
     const onSpanClick = () => {
         closeModal();
     }
-    
+
     const onSubmit = async (data) => {
         const token = await fetchToken();
         await fetchData(data, token);
@@ -96,7 +93,6 @@ export function SignUpForm() {
 
     return (
         <div id="myModal" className="modal">
-            {/*<RenderCounter inittialCount={0} />*/}
             <div className="modal-content">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="cross">
