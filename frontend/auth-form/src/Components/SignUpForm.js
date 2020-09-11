@@ -1,23 +1,30 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 import PasswordStrengthBar from 'react-password-strength-bar';
+import {RenderCounter} from 'react-render-counter';
 
 import {ReactPasswordStrength} from 'react-password-strength'
 
 import "../Styles/SignUpForm.css"
 
 const SignupSchema = yup.object().shape({
-    lastName: yup.string()
+    lastName: yup
+        .string()
         .required("Фамилия обязательна")
+        .max(35, "Максимальная длина фамилии 35 символов")
         .matches(/^[a-zA-Zа-яА-ЯёЁ]+$/, 'В данном поле разрешены только буквенные выражения'),
-    firstName: yup.string()
+    firstName: yup
+        .string()
         .required("Имя обязательно")
+        .max(40, "Максимальная длина имени 40 символов")
         .matches(/^[a-zA-Zа-яА-ЯёЁ]+$/, 'В данном поле разрешены только буквенные выражения'),
-    patronymic: yup.string()
+    patronymic: yup
+        .string()
         .required("Отчество обязательно")
+        .max(40, "Максимальная длина отчества 40 символов")
         .matches(/^[a-zA-Zа-яА-ЯёЁ]+$/, 'В данном поле разрешены только буквенные выражения'),
     age: yup
         .number()
@@ -29,9 +36,12 @@ const SignupSchema = yup.object().shape({
     login: yup
         .string()
         .required('Логин - обязательное поле')
+        .min(4, "Минимально допустимая длина логина 4 символа")
+        .max(30, "Длина логина должна быть не более 30 символов")
         .matches(/^(_*[A-Za-z0-9]+_*)*$/, 'В логине могут быть латинские буквы, цифры и нижнее подчеркивание'),
     email: yup
         .string()
+        .required('Email должен быть указан')
         .email("Такой email не может существовать"),
     password: yup
         .string()
@@ -49,16 +59,44 @@ export function SignUpForm() {
     const scoreWords = ['очень слабый', 'слабый', 'средний', 'хороший', 'сильный'];
     const [password, setPassword] = useState("");
     const onChange = event => {setPassword(event.target.value)}
-    const onSpanClick = () => {
+    const closeModal = () => {
         let modal = document.getElementById("myModal");
         modal.style.display = 'None';
-    }
-    const onSubmit = data => {
-        alert(JSON.stringify(data));
     };
+
+    const onSpanClick = () => {
+        closeModal();
+    }
+    
+    const onSubmit = async (data) => {
+        const token = await fetchToken();
+        await fetchData(data, token);
+    };
+
+    const fetchToken = async () => {
+        const response = await fetch('/csrf');
+        const data = await response.json();
+        return data.token;
+    }
+
+    const fetchData = async (data, token) => {
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'Application/json'
+            },
+            body: JSON.stringify({...data, CSRFtoken: token})
+        })
+        if (response.status === 201) {
+            closeModal()
+        }
+        const responseData = await response.json();
+        alert(responseData.message);
+    }
 
     return (
         <div id="myModal" className="modal">
+            {/*<RenderCounter inittialCount={0} />*/}
             <div className="modal-content">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="cross">
