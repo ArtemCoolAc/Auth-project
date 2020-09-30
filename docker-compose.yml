@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  postgresql:
+    image: library/postgres:12
+    env_file: backend/flaskAuth/.env
+    volumes:
+    - ./postgres-docker/pgdata:/var/lib/postgresql/data/pgdata
+    expose:
+      - 5432
+
+  backend:
+    build: ./backend/
+    env_file: backend/flaskAuth/.env
+    command: bash -c "while !</dev/tcp/postgresql/5432; do sleep 1; done &&
+      cd flaskAuth/ &&
+      python manage.py db upgrade &&
+      python manage.py db migrate &&
+      python app.py"
+    depends_on:
+      - postgresql
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+
+  frontend:
+    tty: true
+    build: ./frontend/
+    command: npm start
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+

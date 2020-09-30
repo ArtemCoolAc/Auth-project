@@ -23,11 +23,14 @@ export function AuthPage(props) {
         }
         const data = await response.json();
         console.log(data);
-    } 
+    }
 
-    useEffect(async () => {
-        const token = await fetchToken();
-        await check_auth(token);
+    useEffect(() => {
+        const checkCookie = async () => {
+            const token = await fetchToken();
+            await check_auth(token);
+        }
+        checkCookie();        
     })
 
     return (

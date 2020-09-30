@@ -37,6 +37,10 @@ class User(db.Model):
     password = db.Column(db.String(200), nullable=False)
 
 
+db.init_app(app)
+db.create_all()
+
+
 @app.before_request
 def check_csrf_token():
     if request.method in ("GET",):
@@ -88,8 +92,6 @@ def csrf_simple():
     if '_csrf_token' not in session:
         session['_csrf_token'] = bytes(secrets.token_hex(128), encoding='utf-8')
         session.modified = True
-        # print(f"В СЕССИИ: {session['_csrf_token']}")
-    # print(f"В СЕССИИ: {session['_csrf_token']}")
     return jsonify({'token': bytes.decode(session['_csrf_token'], 'utf-8')}), 200
 
 
@@ -155,4 +157,4 @@ def authorize():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
